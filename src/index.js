@@ -1,6 +1,9 @@
 const express = require('express');
 //const bodyParser = require('body-parser');
 
+//const User = require('./schema/userSchema');
+
+
 const ServerConfig = require('./config/serverConfig');
 const connectDB = require('./config/dbConfig');
 
@@ -22,6 +25,18 @@ app.listen(ServerConfig.PORT, async ()=>{
     console.log(`Server started at port ${ServerConfig.PORT} ..`);
 
 
+    // const newUser = await User.create({
+    //     email: 'c@d.com',
+    //     password: '654321',
+    //     firstName: 'kripas',
+    //     lastName: 'kanathan',
+    //     mobileNumber: '4321187680'
+    
+    // });
+
+    // console.log("Created new user");
+    // console.log(newUser);
+    
 });
 
 
