@@ -6,6 +6,7 @@ const express = require('express');
 
 const ServerConfig = require('./config/serverConfig');
 const connectDB = require('./config/dbConfig');
+const userRouter = require('./routes/userRoute');
 
 const app = express();
 
@@ -14,6 +15,11 @@ app.use(express.json());
 app.use(express.text()); 
 app.use(express.urlencoded({extended: true}));
 
+
+//Routing middleware
+
+//if your req starts with /users then handle it using userRouter
+app.use('/users',userRouter); //connects the router to the server
 
 app.post('/ping', (req,res)=>{
     console.log(req.body);
