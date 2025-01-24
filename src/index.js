@@ -7,6 +7,7 @@ const express = require('express');
 const ServerConfig = require('./config/serverConfig');
 const connectDB = require('./config/dbConfig');
 const userRouter = require('./routes/userRoute');
+const cartRouter = require('./routes/cartRoute');
 
 const app = express();
 
@@ -20,6 +21,8 @@ app.use(express.urlencoded({extended: true}));
 
 //if your req starts with /users then handle it using userRouter
 app.use('/users',userRouter); //connects the router to the server
+app.use('/carts', cartRouter);
+
 
 app.post('/ping', (req,res)=>{
     console.log(req.body);
@@ -44,5 +47,8 @@ app.listen(ServerConfig.PORT, async ()=>{
     // console.log(newUser);
     
 });
+
+//localhost:5500/users- POST
+//localhost:5500/carts/0896757 - GET
 
 
