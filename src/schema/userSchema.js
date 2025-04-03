@@ -47,6 +47,17 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 });
 
+userSchema.pre("save",  async function (){
+    // here u can modify your user before it is saved in mmongodb
+
+     console.log("Executing pre save hook");
+     console.log(this); 
+     console.log("Executing pre save hook end and creating user now");
+
+
+}
+);
+
 
 const User = mongoose.model("User", userSchema);  // collection
 

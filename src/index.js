@@ -8,6 +8,8 @@ const ServerConfig = require('./config/serverConfig');
 const connectDB = require('./config/dbConfig');
 const userRouter = require('./routes/userRoute');
 const cartRouter = require('./routes/cartRoute');
+const User = require('./schema/userSchema');
+
 
 const app = express();
 
@@ -28,6 +30,11 @@ app.post('/ping', (req,res)=>{
     console.log(req.body);
     return res.json({message:"pong"});
 })
+
+app.post('/users', (req, res) => {
+    res.send("POST request received!");
+});
+
 
 app.listen(ServerConfig.PORT, async ()=>{
     await connectDB();
