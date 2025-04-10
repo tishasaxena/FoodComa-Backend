@@ -49,16 +49,9 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save",  async function (){
-    // here u can modify your user before it is saved in mmongodb
-
-     console.log("Executing pre save hook");
-     console.log(this); 
+    // here u can modify your user before it is saved in mmongodb 
      const hashedPassword =  await bcrypt.hash(this.password,10);
-     console.log(hashedPassword);
      this.password = hashedPassword;
-     console.log(this);
-     console.log("Executing pre save hook end and creating user now");
-
 
 }
 );

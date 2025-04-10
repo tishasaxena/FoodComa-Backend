@@ -9,6 +9,7 @@ const connectDB = require('./config/dbConfig');
 const userRouter = require('./routes/userRoute');
 const cartRouter = require('./routes/cartRoute');
 const User = require('./schema/userSchema');
+const authRouter = require('./routes/authRoute');
 
 
 const app = express();
@@ -24,7 +25,7 @@ app.use(express.urlencoded({extended: true}));
 //if your req starts with /users then handle it using userRouter
 app.use('/users',userRouter); //connects the router to the server
 app.use('/carts', cartRouter);
-
+app.use('/auth', authRouter);
 
 app.post('/ping', (req,res)=>{
     console.log(req.body);
