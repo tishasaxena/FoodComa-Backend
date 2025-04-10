@@ -6,7 +6,7 @@ const { createUser } = require('../controllers/userController');
 // /users
 
 
-//we hace to initialise a router object to add routes in a new file
+//we have to initialise a router object to add routes in a new file
 //Routes are used for segregating your routes in different modules
 
 const userRouter = express.Router();
