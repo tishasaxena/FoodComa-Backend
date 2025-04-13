@@ -10,11 +10,14 @@ const { getProductById } = require('../repositories/productRepository');
         const product = await createProduct({
             productName: req.body.productName,
             description: req.body.description,
-            imagePath: req.file?.path,
+            imagePath: req.file?.path || null,
             price: req.body.price,
             category: req.body.category,// if category is undefined veg will be stored
             inStock: req.body.inStock   // if inStock is undefined true will be stored
         })
+
+        console.log("back to controller", product);
+
         return res.status(201).json({
             success: true,
             message: "Successfully created product",
