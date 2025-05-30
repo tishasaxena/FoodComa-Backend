@@ -1,5 +1,5 @@
 const { findUser,createUser} = require('../repositories/userRepository');
-
+const{ createcart } = require('../repositories/cartRepository');
   
      async  function registerUser(userDetails){
         console.log("Hitting service layer")
@@ -29,6 +29,8 @@ const { findUser,createUser} = require('../repositories/userRepository');
         if(!newUser){
             throw{reason: 'Something went wrong, cannot create user', statusCode: 500}
         }
+
+        await createcart(newUser._id);
 
         //3. return the detials of created user
 
