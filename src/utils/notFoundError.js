@@ -1,14 +1,9 @@
 const AppError = require('./appError');
 
-class NotFoundError extends Error {
-  constructor( resource) {
-   //  properties: [] array
-
-    
-
-
-     super(`Not able to find ${resource}` , 404);
-
+class NotFoundError extends AppError {
+  constructor(resource) {
+    super(`Not able to find ${resource}`, 404);
+    this.name = "NotFoundError";
   }
 }
 
