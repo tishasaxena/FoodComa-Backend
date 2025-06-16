@@ -1,14 +1,14 @@
+
+
 const AppError = require('./appError');
 
-class BadRequestError extends Error {
+class BadRequestError extends AppError {
   constructor(invalidParams) {
-   //  invalid params: [] array
+    // invalidParams is expected to be an array of strings
+    const message = `The request has the following invalid parameters:\n` + 
+                    invalidParams.map(param => `- ${param}`).join('\n');
 
-     let message = "";
-     properties.forEach(params => message += ~ `${params}\n`);
-
-     super(`The request has the following invalid parameers \n${invalidParams}` , 400);
-
+    super(message, 400);  // 400 is the HTTP status code for Bad Request
   }
 }
 
