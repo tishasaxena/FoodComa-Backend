@@ -1,4 +1,7 @@
 const Product = require('../schema/productSchema');
+const BadRequestError = require("../utils/badRequestError");
+const NotFoundError = require("../utils/notFoundError");
+const InternalServerError = require("../utils/internalServerError");
 
 async function createProduct(productDetails){
     try{
@@ -30,6 +33,19 @@ async function getProductById(productId){
     }
 }
 
+async function getAllProducts(){
+
+    try{
+      const products = await Product.find({});     
+      return products;
+    }catch(error){
+        console.log(error);
+        throw new InternalServerError();   
+    }
+}
+
+
+
 async function deleteProductById(productId){
     try{
         const response = await Product.findByIdAndDelete(productId);
@@ -43,5 +59,6 @@ async function deleteProductById(productId){
 module.exports = {
     createProduct,
     getProductById,
-    deleteProductById
+    deleteProductById,
+    getAllProducts
 }

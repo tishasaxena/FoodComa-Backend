@@ -1,5 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 //const bodyParser = require('body-parser');
 
 //const User = require('./schema/userSchema');
@@ -16,9 +17,17 @@ const uploader = require('./middlewares/multerMiddleware');
 const cloudinary = require('./config/cloudinaryConfig');
 const fs = require('fs/promises');
 const productRouter = require('./routes/prodcutRoute');
-const orderRouter = require('./routes/orderRoute')
+const orderRouter = require('./routes/orderRoute');
+const { findUser } = require('./repositories/userRepository');
+
+
 
 const app = express();
+
+app.use(cors({
+    origin: 'http://localhost:5173',// Allow server to accept  requests from different origin
+    credentials: true// Allow cookies to be sent
+}));
 
 app.use(cookieParser()); 
 app.use(express.json()); 

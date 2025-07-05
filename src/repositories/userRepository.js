@@ -1,5 +1,9 @@
 const User = require('../schema/userSchema');
 
+const BadRequestError = require("../utils/badRequestError");
+const NotFoundError = require("../utils/notFoundError");
+const InternalServerError = require("../utils/internalServerError");
+
     async  function findUser(parameters){
        try {
         const response  = await User.findOne({ ...parameters });
@@ -14,10 +18,19 @@ const User = require('../schema/userSchema');
         try{
             const response = await User.create(userDetails);
             return response;
-            
-        }catch(error){
-            console.log(error);
         }
+         catch(error){
+        // Handle validation errors
+       if(error.name === 'ValidationError'){
+             const errorMessageList =   Object.keys(error.errors).map((property) => {
+                return error.errors[property].message;
+        });
+        console.log(errorMessageList);
+            throw new BadRequestError(errorMessageList);
+        }
+        console.log(error);
+        throw new InternalServerError();   
+    }
      
     }
 
