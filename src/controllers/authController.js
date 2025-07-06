@@ -44,17 +44,16 @@ async function login(req, res) {
             },
             error: {}
         })
-    } catch(error) {
-        return res.status(error.statusCode).json({
-            success: false,
-            data: {},
-            message: error.message,
-            error: error
-        })
-    }
-
+} catch(error) {
+    console.error("Login Error:", error);  // optional but helpful
+    return res.status(error.statusCode || 500).json({
+        success: false,
+        data: {},
+        message: error.message || "Internal Server Error",
+        error: error
+    });
 }
-
+}
 module.exports = {
     login,logout
 }

@@ -25,7 +25,7 @@ const { findUser } = require('./repositories/userRepository');
 const app = express();
 
 app.use(cors({
-    origin: 'https://pizza-frontend-nu.vercel.app/',// Allow server to accept  requests from different origin
+    origin: ServerConfig.FRONTEND_URL,// Allow server to accept  requests from different origin
     credentials: true// Allow cookies to be sent
 }));  
 
