@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const { JWT_SECRET, COOKIE_SECURE, FRONTEND_URL } = require('../config/serverConfig');
 const UnAuthorisedError = require('../utils/unauthorisedError');
 
+
+const frontendDomain = new URL(process.env.FRONTEND_URL).hostname;
 async function isLoggedIn(req, res, next) {
     console.log("Inside isLoggedIn", req.cookies);
     const token = req.cookies["authToken"];
@@ -39,7 +41,7 @@ async function isLoggedIn(req, res, next) {
                 sameSite: "lax",
                 secure: COOKIE_SECURE,
                 maxAge: 7 * 24 * 60 * 60 * 1000,
-                domain: FRONTEND_URL
+                domain:frontendDomain
             });
             return res.status(200).json({
                 success: true,

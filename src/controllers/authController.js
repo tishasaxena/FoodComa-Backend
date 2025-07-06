@@ -1,7 +1,7 @@
 const { COOKIE_SECURE, FRONTEND_URL } = require("../config/serverConfig");
 const { loginUser } = require("../services/authService");
 
-
+const frontendDomain = new URL(process.env.FRONTEND_URL).hostname;
 async function logout(req, res) {
 
     console.log("Cookie from frontend", req.cookies);
@@ -11,7 +11,7 @@ async function logout(req, res) {
         secure: COOKIE_SECURE,
         sameSite: "lax",
         maxAge: 7 * 24 * 60 * 60 * 1000,
-        domain: FRONTEND_URL
+        domain: frontendDomain
     });
     return res.status(200).json({
         success: true,
@@ -31,7 +31,7 @@ async function login(req, res) {
             httpOnly: true,
             secure: COOKIE_SECURE,
             sameSite: "lax",
-            domain: FRONTEND_URL,
+            domain: frontendDomain,
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
