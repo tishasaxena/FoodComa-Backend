@@ -1,4 +1,5 @@
 const { COOKIE_SECURE, FRONTEND_URL } = require("../config/serverConfig");
+const { none } = require("../middlewares/multerMiddleware");
 const { loginUser } = require("../services/authService");
 
 const frontendDomain = new URL(process.env.FRONTEND_URL).hostname;
@@ -8,10 +9,10 @@ async function logout(req, res) {
 
     res.cookie("authToken", "", {
         httpOnly: true,
-        secure: COOKIE_SECURE,
-        sameSite: "lax",
+        secure: true,
+        sameSite: "None",
         maxAge: 7 * 24 * 60 * 60 * 1000,
-        domain: frontendDomain
+     //   domain: frontendDomain
     });
     return res.status(200).json({
         success: true,
@@ -31,9 +32,9 @@ async function login(req, res) {
 
         res.cookie("authToken", response.token, {
             httpOnly: true,
-            secure: COOKIE_SECURE,
-            sameSite: "lax",
-            domain: frontendDomain,
+            secure:  true,
+            sameSite: "None",
+       //     domain: frontendDomain,
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
