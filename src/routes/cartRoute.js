@@ -3,7 +3,7 @@ const {  getCartByUser, modifyProductToCart, clearCartById } = require('../contr
 const { isLoggedIn } = require('../validation/authValidator');
 const cartRouter = express.Router();
 
-cartRouter.get('/', isLoggedIn, getCartByUser);
+cartRouter.post('/', isLoggedIn, getCartByUser);
 
 cartRouter.post('/:operation/:productId', isLoggedIn, modifyProductToCart);
 
