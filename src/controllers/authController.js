@@ -1,6 +1,6 @@
 const { COOKIE_SECURE, FRONTEND_URL } = require("../config/serverConfig");
-const { none } = require("../middlewares/multerMiddleware");
 const { loginUser } = require("../services/authService");
+const { findUser } = require("../repositories/userRepository");
 
 const frontendDomain = new URL(process.env.FRONTEND_URL).hostname;
 async function logout(req, res) {
@@ -57,6 +57,41 @@ async function login(req, res) {
     });
 }
 }
+
+async function checkAuth(req, res) {
+    try {
+        const user = await findUser({ email: req.user.email });
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: 'User not found',
+                data: {},
+                error: {}
+            });
+        }
+        const userRole = user.role ? user.role : 'USER';
+        return res.status(200).json({
+            success: true,
+            message: 'Authenticated',
+            data: {
+                user: {
+                    email: user.email,
+                    firstName: user.firstName,
+                    role: userRole
+                }
+            },
+            error: {}
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Something went wrong',
+            data: {},
+            error: error
+        });
+    }
+}
+
 module.exports = {
-    login,logout
+    login, logout, checkAuth
 }

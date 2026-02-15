@@ -26,8 +26,8 @@ const app = express();
     
 
 app.use(cors({
-    origin:'https://pizza-frontend-nu.vercel.app',// Allow server to accept  requests from different origin
-    credentials: true// Allow cookies to be sent
+    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    credentials: true
 })); 
 
 app.use(cookieParser()); 
@@ -61,9 +61,6 @@ app.post('/photo', uploader.single('incomingFile'), async (req, res) => {
 });
 
 
-app.post('/users', (req, res) => {
-    res.send("POST request received!");
-});
 
 
 app.listen(ServerConfig.PORT, async ()=>{
